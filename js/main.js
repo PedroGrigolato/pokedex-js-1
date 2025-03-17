@@ -3,28 +3,9 @@ let topo;
 let loading = false;
 let filtered = false;
 
-const url = "https://pokeapi.co/api/v2";
+const url = "https://pokeapi.co/api/v2/";
 
-const allTypes = [
-    "steel",
-    "water",
-    "dragon",
-    "eletric",
-    "fairy",
-    "ghost",
-    "fire",
-    "ice",
-    "bug",
-    "fighting",
-    "normal",
-    "rock",
-    "grass",
-    "psychic",
-    "dark",
-    "ground",
-    "poison",
-    "flying",
-];
+const allTypes = ['steel', 'water', 'dragon', 'electric', 'fairy', 'ghost', 'fire', 'ice', 'bug', 'fighting', 'normal', 'rock', 'grass', 'psychic', 'dark', 'ground', 'poison', 'flying'];
 
 const todosTipos = [
     { nome: "Aço", cor: "rgba(170, 170, 187, 0.75)"},
@@ -63,15 +44,15 @@ async function getPokemon(resource) {
         if (!response.ok) {
             return null;
         }
-        return wait response.json();
-        }catch(error) {
+        return await response.json();
+    } catch (error) {
         console.error(error.message);
-        }
+    }
 }
 
 async function searchPokemon() {
     if (loading) return;
-    let search = document.querySelector('input[type="search"]').ariaValueMax;
+    let search = document.querySelector('input[type="search"]').value;
     if (search != "") {
         loading = true;
         const pokemon = await getPokemon("pokemon/" + search);
@@ -85,7 +66,7 @@ function capitalizeFirstLetter(string) {
 }
 
 function carousel(sprites) {
-    return `<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel>
+    return `<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
             <img src="${sprites.other["official-artwork"].front_default}" class="d-block w-100" alt="Padrão">
@@ -98,10 +79,9 @@ function carousel(sprites) {
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-</div>`;
+    </div>`;
 }
-
